@@ -136,10 +136,22 @@
     </div>
 
     <script>
-        // THAY LINK WEB APP CỦA BẠN VÀO DƯỚI ĐÂY:
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwj-kSnokuo78Oje7A5BB7WkJPMPBjt4UM2tYBTI0RC2NkRnX3WCOpqIvR5_S_mPb5Y5A/exec";
+        // Link Web App của bạn
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz_K_N3x6bM6wZc3O5Mv9kGjL2T9v_0l6H8c7kY1z2a3b4c5d6e7f8g9h0/exec"; // Bạn hãy giữ nguyên link Web App hiện tại của bạn nhé (hoặc đoạn YOUR_WEB_APP_URL_HERE cũ của bạn)
 
         let allProfiles = [];
+
+        // Hàm chuyển đổi link Google Drive sang link ảnh hiển thị trực tiếp
+        function fixImageUrl(url) {
+            if (!url) return 'https://via.placeholder.com/150';
+            if (url.includes('drive.google.com')) {
+                let match = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/);
+                if (match && match[1]) {
+                    return `https://lh3.googleusercontent.com/d/${match[1]}`;
+                }
+            }
+            return url;
+        }
 
         async function loadData() {
             try {
@@ -159,20 +171,23 @@
                 return;
             }
 
-            grid.innerHTML = profiles.map((p, index) => `
-                <div class="card" onclick='openProfile(${JSON.stringify(p)})'>
-                    <img src="${p.avatar || 'https://via.placeholder.com/150'}" class="avatar" alt="Avatar">
-                    <div class="name">${p.name || ''}</div>
-                    <div class="nickname">${p.nickname ? '"' + p.nickname + '"' : ''}</div>
-                    <div class="class-badge">${p.className || ''}</div>
-                    <div class="bio">${p.bio || 'Chưa có lời giới thiệu.'}</div>
-                    <div class="social-links" onclick="event.stopPropagation()">
-                        ${p.facebook ? `<a href="${p.facebook}" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i></a>` : ''}
-                        ${p.instagram ? `<a href="${p.instagram}" target="_blank" class="social-btn"><i class="fab fa-instagram"></i></a>` : ''}
-                        ${p.tiktok ? `<a href="${p.tiktok}" target="_blank" class="social-btn"><i class="fab fa-tiktok"></i></a>` : ''}
+            grid.innerHTML = profiles.map((p, index) => {
+                let avatarUrl = fixImageUrl(p.avatar);
+                return `
+                    <div class="card" onclick='openProfile(${JSON.stringify(p).replace(/'/g, "&#39;")})'>
+                        <img src="${avatarUrl}" class="avatar" alt="Avatar">
+                        <div class="name">${p.name || ''}</div>
+                        <div class="nickname">${p.nickname ? '"' + p.nickname + '"' : ''}</div>
+                        <div class="class-badge">${p.className || ''}</div>
+                        <div class="bio">${p.bio || 'Chưa có lời giới thiệu.'}</div>
+                        <div class="social-links" onclick="event.stopPropagation()">
+                            ${p.facebook ? `<a href="${p.facebook}" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i></a>` : ''}
+                            ${p.instagram ? `<a href="${p.instagram}" target="_blank" class="social-btn"><i class="fab fa-instagram"></i></a>` : ''}
+                            ${p.tiktok ? `<a href="${p.tiktok}" target="_blank" class="social-btn"><i class="fab fa-tiktok"></i></a>` : ''}
+                        </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function openProfile(p) {
@@ -180,7 +195,7 @@
             document.getElementById('mNickname').innerText = p.nickname ? `"${p.nickname}"` : '';
             document.getElementById('mClass').innerText = p.className || '';
             document.getElementById('mBio').innerText = p.bio || '';
-            document.getElementById('mAvatar').src = p.avatar || 'https://via.placeholder.com/150';
+            document.getElementById('mAvatar').src = fixImageUrl(p.avatar);
             
             document.getElementById('mLinkFb').href = p.facebook || '#';
             document.getElementById('mLinkIg').href = p.instagram || '#';
