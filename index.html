@@ -10,38 +10,40 @@
         :root {
             --primary: #4f46e5;
             --primary-hover: #4338ca;
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #1e293b;
-            --text-sub: #64748b;
-            --border: #e2e8f0;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --border: #334155;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; padding: 20px; }
         .container { max-width: 1200px; margin: 0 auto; }
-        header { text-align: center; margin-bottom: 30px; }
-        header h1 { font-size: 1.8rem; color: var(--primary); margin-bottom: 8px; }
+        header { text-align: center; margin-bottom: 30px; margin-top: 20px; }
+        header h1 { font-size: 2rem; color: #818cf8; margin-bottom: 8px; font-weight: 700; }
         header p { color: var(--text-sub); font-size: 0.95rem; }
         
         .search-box {
             display: flex;
             justify-content: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
         .search-box input {
             width: 100%;
             max-width: 500px;
-            padding: 12px 20px;
+            padding: 14px 20px;
             font-size: 1rem;
+            background: var(--card-bg);
             border: 1px solid var(--border);
+            color: var(--text-main);
             border-radius: 30px;
             outline: none;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
         }
         .search-box input:focus {
             border-color: var(--primary);
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+            box-shadow: 0 0 15px rgba(79, 70, 229, 0.4);
         }
 
         .grid {
@@ -51,16 +53,18 @@
         }
         .card {
             background: var(--card-bg);
-            border-radius: 16px;
-            padding: 20px;
+            border-radius: 20px;
+            padding: 25px 20px;
             border: 1px solid var(--border);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
             text-align: center;
-            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
         }
         .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px -3px rgba(79, 70, 229, 0.2);
+            border-color: var(--primary);
         }
         .avatar {
             width: 90px;
@@ -71,16 +75,16 @@
             border: 3px solid var(--primary);
         }
         .name { font-size: 1.1rem; font-weight: 600; color: var(--text-main); }
-        .nickname { font-size: 0.85rem; color: var(--primary); font-weight: 500; margin-bottom: 4px; }
+        .nickname { font-size: 0.85rem; color: #818cf8; font-weight: 500; margin-bottom: 4px; }
         .class-badge {
             display: inline-block;
-            background: #eef2ff;
-            color: var(--primary);
-            padding: 3px 10px;
+            background: rgba(79, 70, 229, 0.2);
+            color: #818cf8;
+            padding: 4px 12px;
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         .bio { font-size: 0.85rem; color: var(--text-sub); margin-bottom: 15px; min-height: 35px; }
         
@@ -104,29 +108,100 @@
         .social-btn:hover { opacity: 0.85; }
         .fb { background: #1877f2; }
         .ig { background: #e4405f; }
-        .tt { background: #000000; }
+        .tt { background: #000000; border: 1px solid #334155; }
+
+        /* Modal Popup (Giao diện khi bấm vào xem chi tiết blog cá nhân) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 24px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px; right: 20px;
+            font-size: 1.5rem;
+            color: var(--text-sub);
+            cursor: pointer;
+            background: none; border: none;
+        }
+        .close-btn:hover { color: var(--text-main); }
+        .modal-avatar {
+            width: 110px; height: 110px;
+            border-radius: 50%; object-fit: cover;
+            border: 4px solid var(--primary);
+            margin-bottom: 15px;
+        }
+        .modal-name { font-size: 1.4rem; font-weight: 700; margin-bottom: 5px; }
+        .modal-nickname { color: #818cf8; font-size: 0.95rem; margin-bottom: 8px; }
+        .modal-bio { background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px; margin: 15px 0; font-size: 0.9rem; color: var(--text-sub); border: 1px solid var(--border); }
+        
+        .full-socials {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .link-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: opacity 0.2s;
+        }
+        .link-item:hover { opacity: 0.9; }
+        .link-fb { background: #1877f2; }
+        .link-ig { background: linear-order(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); background: #e4405f; }
+        .link-tt { background: #000000; border: 1px solid var(--border); }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>THPT Cẩm Giàng Directory</h1>
-            <p>Tìm kiếm thông tin, kết nối bạn bè toàn trường nhanh chóng ✨</p>
+            <p>Chạm vào thẻ của bất kỳ bạn nào để xem thông tin chi tiết và kết nối ✨</p>
         </header>
 
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Nhập tên, biệt danh hoặc lớp để tìm kiếm...">
+            <input type="text" id="searchInput" placeholder="Tìm kiếm theo tên, biệt danh hoặc lớp...">
         </div>
 
         <div class="grid" id="profileGrid">
-            <!-- Thẻ mẫu minh họa -->
-            <div class="card">
+            <!-- Thẻ mẫu 1 -->
+            <div class="card" onclick="openProfile('Phạm Tùng Dương', 'Thành viên mẫu', 'Lớp 12A...', 'Cẩm Giàng shines together 🔥', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150', 'https://facebook.com', 'https://instagram.com', 'https://tiktok.com')">
                 <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" class="avatar" alt="Avatar">
                 <div class="nickname">"Thành viên mẫu"</div>
                 <div class="name">Phạm Tùng Dương</div>
                 <div class="class-badge">Lớp 12A...</div>
                 <div class="bio">Cẩm Giàng shines together 🔥</div>
-                <div class="social-links">
+                <div class="social-links" onclick="event.stopPropagation()">
                     <a href="https://facebook.com" target="_blank" class="social-btn fb" title="Facebook"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://instagram.com" target="_blank" class="social-btn ig" title="Instagram"><i class="fab fa-instagram"></i></a>
                     <a href="https://tiktok.com" target="_blank" class="social-btn tt" title="TikTok"><i class="fab fa-tiktok"></i></a>
@@ -135,7 +210,54 @@
         </div>
     </div>
 
+    <!-- Hộp thoại Chi tiết Profile (Mini Blog) -->
+    <div class="modal" id="profileModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeProfile()">&times;</button>
+            <img src="" id="mAvatar" class="modal-avatar" alt="Avatar">
+            <div class="modal-nickname" id="mNickname"></div>
+            <div class="modal-name" id="mName"></div>
+            <div class="class-badge" id="mClass"></div>
+            <div class="modal-bio" id="mBio"></div>
+            
+            <div class="full-socials">
+                <a href="#" id="mLinkFb" target="_blank" class="link-item link-fb"><i class="fab fa-facebook-f"></i> Nhắn tin Facebook cá nhân</a>
+                <a href="#" id="mLinkIg" target="_blank" class="link-item link-ig"><i class="fab fa-instagram"></i> Xem trang Instagram / Locket</a>
+                <a href="#" id="mLinkTt" target="_blank" class="link-item link-tt"><i class="fab fa-tiktok"></i> Ghé thăm kênh TikTok</a>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Hàm mở popup chi tiết
+        function openProfile(name, nickname, className, bio, avatar, fb, ig, tt) {
+            document.getElementById('mName').innerText = name;
+            document.getElementById('mNickname').innerText = nickname ? `"${nickname}"` : '';
+            document.getElementById('mClass').innerText = className;
+            document.getElementById('mBio').innerText = bio;
+            document.getElementById('mAvatar').src = avatar;
+            
+            document.getElementById('mLinkFb').href = fb;
+            document.getElementById('mLinkIg').href = ig;
+            document.getElementById('mLinkTt').href = tt;
+
+            document.getElementById('profileModal').style.display = 'flex';
+        }
+
+        // Hàm đóng popup
+        function closeProfile() {
+            document.getElementById('profileModal').style.display = 'none';
+        }
+
+        // Đóng khi click ra ngoài vùng modal
+        window.onclick = function(event) {
+            let modal = document.getElementById('profileModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Tìm kiếm thời gian thực
         const searchInput = document.getElementById('searchInput');
         searchInput.addEventListener('input', (e) => {
             const keyword = e.target.value.toLowerCase();
