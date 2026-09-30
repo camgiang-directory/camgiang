@@ -3,177 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng ký thông tin - THPT Cẩm Giàng</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Đăng ký thông tin - Bếp 11A</title>
     <style>
-        :root {
-            --primary: #d97706;
-            --primary-hover: #b45309;
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #0f172a;
-            --text-sub: #64748b;
-            --border: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; padding: 30px 20px; display: flex; justify-content: center; align-items: center; }
-        
-        .container { max-width: 500px; width: 100%; background: var(--card-bg); padding: 35px 30px; border-radius: 24px; border: 1px solid var(--border); box-shadow: var(--shadow); }
-        
-        header { text-align: center; margin-bottom: 25px; }
-        header h1 { font-size: 1.8rem; color: var(--text-main); font-weight: 700; margin-bottom: 8px; }
-        header h1 span { color: var(--primary); }
-        header p { color: var(--text-sub); font-size: 0.9rem; }
-
-        .form-group { margin-bottom: 18px; }
-        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 6px; }
-        .form-group input, .form-group textarea {
-            width: 100%; padding: 12px 16px; font-size: 0.95rem; background: #f8fafc; border: 1px solid var(--border);
-            color: var(--text-main); border-radius: 12px; outline: none; transition: all 0.3s ease;
-        }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15); }
-        .form-group textarea { resize: vertical; min-height: 80px; }
-        
-        .form-group input[type="file"] { padding: 10px; border: 1px dashed var(--border); background: #f8fafc; cursor: pointer; }
-
-        .btn-submit {
-            width: 100%; background: var(--primary); color: white; padding: 14px; border-radius: 12px;
-            border: none; font-weight: 600; font-size: 1rem; cursor: pointer; box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
-            transition: background 0.2s, transform 0.2s; margin-top: 10px;
-        }
-        .btn-submit:hover { background: var(--primary-hover); transform: translateY(-1px); }
-        .back-link { display: block; text-align: center; margin-top: 15px; color: var(--text-sub); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
-        .back-link:hover { color: var(--primary); }
-
-        #result { text-align: center; margin-top: 15px; font-size: 0.9rem; font-weight: 500; }
+        body { font-family: Arial, sans-serif; background: #f4f6f9; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 500px; }
+        h2 { text-align: center; color: #d9534f; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
+        input, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+        textarea { resize: vertical; height: 80px; }
+        button { width: 100%; background: #d9534f; color: white; border: none; padding: 12px; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.3s; }
+        button:hover { background: #c9302c; }
+        .back-link { display: block; text-align: center; margin-top: 15px; color: #0275d8; text-decoration: none; }
+        .back-link:hover { text-decoration: underline; }
+        #loading { display: none; text-align: center; margin-top: 10px; color: #666; font-style: italic; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1>Đăng ký thông tin <span>THPT Cẩm Giàng</span></h1>
-            <p>Điền thông tin để hiển thị lên danh sách toàn trường ✨</p>
-        </header>
-
-        <form id="regForm">
-            <div class="form-group">
-                <label>Họ và tên (*)</label>
-                <input type="text" name="name" required placeholder="Ví dụ: Nguyễn Văn A">
-            </div>
-
-            <div class="form-group">
-                <label>Biệt danh / Tên gọi ở nhà</label>
-                <input type="text" name="nickname" placeholder="Ví dụ: A mập">
-            </div>
-
-            <div class="form-group">
-                <label>Lớp (*)</label>
-                <input type="text" name="className" required placeholder="Ví dụ: 12A">
-            </div>
-
-            <div class="form-group">
-                <label>Ảnh Avatar cá nhân</label>
-                <input type="file" id="avatarFile" accept="image/*">
-            </div>
-
-            <div class="form-group">
-                <label>Giới thiệu ngắn (Bio)</label>
-                <textarea name="bio" placeholder="Vài dòng giới thiệu bản thân..."></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Link Facebook cá nhân</label>
-                <input type="url" name="facebook" placeholder="https://facebook.com/...">
-            </div>
-
-            <div class="form-group">
-                <label>Link Instagram / Locket</label>
-                <input type="url" name="instagram" placeholder="https://instagram.com/...">
-            </div>
-
-            <div class="form-group">
-                <label>Link TikTok</label>
-                <input type="url" name="tiktok" placeholder="https://tiktok.com/@...">
-            </div>
-
-            <button type="submit" class="btn-submit" id="submitBtn">Gửi thông tin</button>
-            <div id="result"></div>
-        </form>
+<div class="container">
+    <h2>Đăng Ký Thông Tin</h2>
+    <form id="registerForm">
+        <div class="form-group">
+            <label>Họ và tên:</label>
+            <input type="text" name="name" required placeholder="Nhập họ và tên của bạn">
+        </div>
+        <div class="form-group">
+            <label>Biệt danh (Nickname):</label>
+            <input type="text" name="nickname" placeholder="Ví dụ: Tùng Kun">
+        </div>
+        <div class="form-group">
+            <label>Lớp:</label>
+            <input type="text" name="className" required placeholder="Ví dụ: 11A">
+        </div>
+        <div class="form-group">
+            <label>Tiểu sử / Giới thiệu ngắn:</label>
+            <textarea name="bio" placeholder="Vài dòng về bản thân..."></textarea>
+        </div>
+        <div class="form-group">
+            <label>Link Ảnh đại diện (Avatar):</label>
+            <input type="url" name="avatar" placeholder="Dán link ảnh vào đây">
+        </div>
+        <div class="form-group">
+            <label>Link Facebook:</label>
+            <input type="url" name="facebook" placeholder="https://facebook.com/...">
+        </div>
+        <div class="form-group">
+            <label>Link Instagram:</label>
+            <input type="url" name="instagram" placeholder="https://instagram.com/...">
+        </div>
+        <div class="form-group">
+            <label>Link TikTok:</label>
+            <input type="url" name="tiktok" placeholder="https://tiktok.com/@...">
+        </div>
         
-        <a href="index.html" class="back-link" id="backBtn"><i class="fa-solid fa-arrow-left"></i> Quay lại trang danh sách</a>
-    </div>
+        <button type="submit" id="submitBtn">Gửi Thông Tin</button>
+        <div id="loading">Đang gửi dữ liệu lên hệ thống, vui lòng chờ xíu...</div>
+    </form>
+    <a href="index.html" class="back-link">← Quay lại trang chủ</a>
+</div>
 
-    <script>
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyfD_5QkRjkNCbcOjNtycJ72NOjhTa6rr8Yc9ZUPuYE-etvUWS8kR4iFPpWr2HcpaVr/exec";
-        const IMGBB_API_KEY = "6d207e02198a847aa98d0a2a901485a2"; 
+<script>
+    // 👇 DÁN LINK GOOGLE APPS SCRIPT CỦA BẠN VÀO DƯỚI NÀY (Nhớ giữ nguyên dấu ngoặc kép)
+    const SCRIPT_URL = "DÁN_LINK_WEB_APP_Ở_ĐÂY";
 
-        // Tự động điều chỉnh link quay lại đúng thư mục GitHub Pages đang chạy
-        const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
-        document.getElementById('backBtn').href = basePath + "/index.html";
+    const form = document.getElementById('registerForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const loading = document.getElementById('loading');
 
-        document.getElementById('regForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const btn = document.getElementById('submitBtn');
-            const resultDiv = document.getElementById('result');
-            
-            btn.disabled = true;
-            resultDiv.innerHTML = "Đang xử lý và tải ảnh lên...";
-            resultDiv.style.color = "var(--text-sub)";
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        if (SCRIPT_URL.includes("DÁN_LINK_WEB_APP_Ở_ĐÂY")) {
+            alert("Bạn chưa dán Link Google Apps Script vào code kìa!");
+            return;
+        }
 
-            try {
-                let avatarUrl = "";
-                const fileInput = document.getElementById('avatarFile');
-                
-                if (fileInput.files.length > 0) {
-                    const formDataImg = new FormData();
-                    formDataImg.append('image', fileInput.files[0]);
-                    
-                    const imgRes = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-                        method: 'POST',
-                        body: formDataImg
-                    });
-                    const imgData = await imgRes.json();
-                    if (imgData.success) {
-                        avatarUrl = imgData.data.url;
-                    }
-                }
+        submitBtn.style.display = 'none';
+        loading.style.display = 'block';
 
-                const formElement = e.target;
-                const data = {
-                    name: formElement.name.value,
-                    nickname: formElement.nickname.value,
-                    className: formElement.className.value,
-                    bio: formElement.bio.value,
-                    avatar: avatarUrl,
-                    facebook: formElement.facebook.value,
-                    instagram: formElement.instagram.value,
-                    tiktok: formElement.tiktok.value
-                };
+        const formData = new FormData(form);
+        const data = {};
+        formData.forEach((value, key) => (data[key] = value));
 
-                const encodedData = new URLSearchParams(data).toString();
-                await fetch(WEB_APP_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: encodedData
-                });
-
-                resultDiv.innerHTML = "Đăng ký thành công! Đang chuyển hướng...";
-                resultDiv.style.color = "#16a34a";
-                formElement.reset();
-                
-                setTimeout(() => {
-                    window.location.href = basePath + "/index.html";
-                }, 1500);
-
-            } catch (err) {
-                resultDiv.innerHTML = "Có lỗi xảy ra, vui lòng thử lại!";
-                resultDiv.style.color = "#dc2626";
-                btn.disabled = false;
-            }
+        // Dùng no-cors để né lỗi chặn duyệt trình duyệt của Google Script, sau đó tự động chuyển trang
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        .then(() => {
+            alert("Đăng ký thành công!");
+            window.location.href = "index.html"; // Tự động đá về trang chủ mượt mà
+        })
+        .catch(error => {
+            console.error('Lỗi:', error);
+            alert("Có lỗi xảy ra, thử lại nhé!");
+            submitBtn.style.display = 'block';
+            loading.style.display = 'none';
         });
-    </script>
+    });
+</script>
+
 </body>
 </html>
