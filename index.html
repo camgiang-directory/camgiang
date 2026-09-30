@@ -3,25 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Directory THPT Cẩm Giàng - Kênh kết nối học sinh</title>
+    <title>THPT Cẩm Giàng Directory</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-main: #f8fafc;
-            --text-sub: #94a3b8;
-            --border: #334155;
+            --primary: #f59e0b; /* Màu vàng Gold sang trọng */
+            --primary-hover: #d97706;
+            --bg-color: #090a0f;
+            --card-bg: #12141c;
+            --text-main: #ffffff;
+            --text-sub: #9ca3af;
+            --border: #1f293d;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; padding: 20px; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        header { text-align: center; margin-bottom: 30px; margin-top: 20px; }
-        header h1 { font-size: 2rem; color: #818cf8; margin-bottom: 8px; font-weight: 700; }
-        header p { color: var(--text-sub); font-size: 0.95rem; }
+        body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; padding: 30px 20px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        
+        header { text-align: center; margin-bottom: 35px; }
+        header h1 { font-size: 2.2rem; color: var(--text-main); margin-bottom: 10px; font-weight: 700; letter-spacing: -0.5px; }
+        header h1 span { color: var(--primary); }
+        header p { color: var(--text-sub); font-size: 1rem; }
         
         .search-box {
             display: flex;
@@ -30,20 +32,20 @@
         }
         .search-box input {
             width: 100%;
-            max-width: 500px;
-            padding: 14px 20px;
-            font-size: 1rem;
+            max-width: 480px;
+            padding: 14px 22px;
+            font-size: 0.95rem;
             background: var(--card-bg);
             border: 1px solid var(--border);
             color: var(--text-main);
-            border-radius: 30px;
+            border-radius: 14px;
             outline: none;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
             transition: all 0.3s ease;
         }
         .search-box input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 15px rgba(79, 70, 229, 0.4);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
         }
 
         .grid {
@@ -54,39 +56,39 @@
         .card {
             background: var(--card-bg);
             border-radius: 20px;
-            padding: 25px 20px;
+            padding: 24px 20px;
             border: 1px solid var(--border);
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2);
             text-align: center;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
         }
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 20px -3px rgba(79, 70, 229, 0.2);
-            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.15);
+            border-color: rgba(245, 158, 11, 0.4);
         }
         .avatar {
-            width: 90px;
-            height: 90px;
+            width: 85px;
+            height: 85px;
             border-radius: 50%;
             object-fit: cover;
-            margin-bottom: 12px;
-            border: 3px solid var(--primary);
+            margin-bottom: 14px;
+            border: 2px solid var(--primary);
         }
-        .name { font-size: 1.1rem; font-weight: 600; color: var(--text-main); }
-        .nickname { font-size: 0.85rem; color: #818cf8; font-weight: 500; margin-bottom: 4px; }
+        .name { font-size: 1.1rem; font-weight: 600; color: var(--text-main); margin-bottom: 2px; }
+        .nickname { font-size: 0.85rem; color: var(--primary); font-weight: 500; margin-bottom: 8px; }
         .class-badge {
             display: inline-block;
-            background: rgba(79, 70, 229, 0.2);
-            color: #818cf8;
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--primary);
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 600;
             margin-bottom: 12px;
         }
-        .bio { font-size: 0.85rem; color: var(--text-sub); margin-bottom: 15px; min-height: 35px; }
+        .bio { font-size: 0.85rem; color: var(--text-sub); margin-bottom: 16px; min-height: 35px; line-height: 1.4; }
         
         .social-links {
             display: flex;
@@ -103,20 +105,19 @@
             color: white;
             text-decoration: none;
             font-size: 0.9rem;
-            transition: opacity 0.2s;
+            background: #1a1e29;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
         }
-        .social-btn:hover { opacity: 0.85; }
-        .fb { background: #1877f2; }
-        .ig { background: #e4405f; }
-        .tt { background: #000000; border: 1px solid #334155; }
+        .social-btn:hover { background: var(--primary); color: #000; border-color: var(--primary); }
 
-        /* Modal Popup (Giao diện khi bấm vào xem chi tiết blog cá nhân) */
+        /* Hộp thoại Popup Mini Blog cá nhân */
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
+            background: rgba(5, 6, 10, 0.8);
+            backdrop-filter: blur(8px);
             justify-content: center;
             align-items: center;
             z-index: 1000;
@@ -127,12 +128,12 @@
             border: 1px solid var(--border);
             padding: 30px;
             border-radius: 24px;
-            max-width: 450px;
+            max-width: 420px;
             width: 100%;
             text-align: center;
             position: relative;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 0.3s ease;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            animation: fadeIn 0.25s ease;
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.95); }
@@ -141,21 +142,21 @@
         .close-btn {
             position: absolute;
             top: 15px; right: 20px;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: var(--text-sub);
             cursor: pointer;
             background: none; border: none;
         }
         .close-btn:hover { color: var(--text-main); }
         .modal-avatar {
-            width: 110px; height: 110px;
+            width: 100px; height: 100px;
             border-radius: 50%; object-fit: cover;
-            border: 4px solid var(--primary);
+            border: 3px solid var(--primary);
             margin-bottom: 15px;
         }
-        .modal-name { font-size: 1.4rem; font-weight: 700; margin-bottom: 5px; }
-        .modal-nickname { color: #818cf8; font-size: 0.95rem; margin-bottom: 8px; }
-        .modal-bio { background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px; margin: 15px 0; font-size: 0.9rem; color: var(--text-sub); border: 1px solid var(--border); }
+        .modal-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 4px; }
+        .modal-nickname { color: var(--primary); font-size: 0.9rem; font-weight: 500; margin-bottom: 6px; }
+        .modal-bio { background: rgba(255,255,255,0.02); padding: 12px; border-radius: 12px; margin: 15px 0; font-size: 0.9rem; color: var(--text-sub); border: 1px solid var(--border); line-height: 1.4; }
         
         .full-socials {
             display: flex;
@@ -171,22 +172,32 @@
             padding: 12px;
             border-radius: 12px;
             text-decoration: none;
-            color: white;
-            font-weight: 600;
+            color: var(--text-main);
+            background: #1a1e29;
+            border: 1px solid var(--border);
+            font-weight: 500;
             font-size: 0.95rem;
-            transition: opacity 0.2s;
+            transition: all 0.2s;
         }
-        .link-item:hover { opacity: 0.9; }
-        .link-fb { background: #1877f2; }
-        .link-ig { background: linear-order(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); background: #e4405f; }
-        .link-tt { background: #000000; border: 1px solid var(--border); }
+        .link-item:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(245, 158, 11, 0.05);
+        }
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px;
+            color: var(--text-sub);
+            font-size: 0.95rem;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>THPT Cẩm Giàng Directory</h1>
-            <p>Chạm vào thẻ của bất kỳ bạn nào để xem thông tin chi tiết và kết nối ✨</p>
+            <h1>THPT Cẩm Giàng <span>Directory</span></h1>
+            <p>Không gian kết nối, tìm kiếm thông tin bạn bè toàn trường ✨</p>
         </header>
 
         <div class="search-box">
@@ -194,18 +205,10 @@
         </div>
 
         <div class="grid" id="profileGrid">
-            <!-- Thẻ mẫu 1 -->
-            <div class="card" onclick="openProfile('Phạm Tùng Dương', 'Thành viên mẫu', 'Lớp 12A...', 'Cẩm Giàng shines together 🔥', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150', 'https://facebook.com', 'https://instagram.com', 'https://tiktok.com')">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" class="avatar" alt="Avatar">
-                <div class="nickname">"Thành viên mẫu"</div>
-                <div class="name">Phạm Tùng Dương</div>
-                <div class="class-badge">Lớp 12A...</div>
-                <div class="bio">Cẩm Giàng shines together 🔥</div>
-                <div class="social-links" onclick="event.stopPropagation()">
-                    <a href="https://facebook.com" target="_blank" class="social-btn fb" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://instagram.com" target="_blank" class="social-btn ig" title="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://tiktok.com" target="_blank" class="social-btn tt" title="TikTok"><i class="fab fa-tiktok"></i></a>
-                </div>
+            <!-- Khu vực danh sách trống, sạch sẽ không có thành viên mẫu -->
+            <div class="empty-state">
+                <i class="fa-solid fa-users-rectangle" style="font-size: 2.5rem; margin-bottom: 12px; color: var(--primary);"></i>
+                <p>Chưa có thành viên nào. Hãy điền form để hiển thị thông tin lên đây nhé!</p>
             </div>
         </div>
     </div>
@@ -221,35 +224,32 @@
             <div class="modal-bio" id="mBio"></div>
             
             <div class="full-socials">
-                <a href="#" id="mLinkFb" target="_blank" class="link-item link-fb"><i class="fab fa-facebook-f"></i> Nhắn tin Facebook cá nhân</a>
-                <a href="#" id="mLinkIg" target="_blank" class="link-item link-ig"><i class="fab fa-instagram"></i> Xem trang Instagram / Locket</a>
-                <a href="#" id="mLinkTt" target="_blank" class="link-item link-tt"><i class="fab fa-tiktok"></i> Ghé thăm kênh TikTok</a>
+                <a href="#" id="mLinkFb" target="_blank" class="link-item"><i class="fab fa-facebook-f" style="color: #1877f2;"></i> Nhắn tin Facebook</a>
+                <a href="#" id="mLinkIg" target="_blank" class="link-item"><i class="fab fa-instagram" style="color: #e4405f;"></i> Xem Instagram / Locket</a>
+                <a href="#" id="mLinkTt" target="_blank" class="link-item"><i class="fab fa-tiktok" style="color: #fff;"></i> Ghé thăm TikTok</a>
             </div>
         </div>
     </div>
 
     <script>
-        // Hàm mở popup chi tiết
         function openProfile(name, nickname, className, bio, avatar, fb, ig, tt) {
             document.getElementById('mName').innerText = name;
             document.getElementById('mNickname').innerText = nickname ? `"${nickname}"` : '';
             document.getElementById('mClass').innerText = className;
             document.getElementById('mBio').innerText = bio;
-            document.getElementById('mAvatar').src = avatar;
+            document.getElementById('mAvatar').src = avatar || 'https://via.placeholder.com/150';
             
-            document.getElementById('mLinkFb').href = fb;
-            document.getElementById('mLinkIg').href = ig;
-            document.getElementById('mLinkTt').href = tt;
+            document.getElementById('mLinkFb').href = fb || '#';
+            document.getElementById('mLinkIg').href = ig || '#';
+            document.getElementById('mLinkTt').href = tt || '#';
 
             document.getElementById('profileModal').style.display = 'flex';
         }
 
-        // Hàm đóng popup
         function closeProfile() {
             document.getElementById('profileModal').style.display = 'none';
         }
 
-        // Đóng khi click ra ngoài vùng modal
         window.onclick = function(event) {
             let modal = document.getElementById('profileModal');
             if (event.target == modal) {
@@ -257,7 +257,6 @@
             }
         }
 
-        // Tìm kiếm thời gian thực
         const searchInput = document.getElementById('searchInput');
         searchInput.addEventListener('input', (e) => {
             const keyword = e.target.value.toLowerCase();
