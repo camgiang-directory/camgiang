@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #d97706; /* Màu vàng Gold sang trọng */
+            --primary: #d97706; /* Vàng Gold sang trọng */
             --primary-hover: #b45309;
-            --bg-color: #f8fafc; /* Nền trắng sáng */
-            --card-bg: #ffffff; /* Thẻ màu trắng tinh */
-            --text-main: #0f172a; /* Chữ chính màu đen đậm */
-            --text-sub: #64748b; /* Chữ phụ xám */
-            --border: #e2e8f0; /* Viền xám nhạt */
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --bg-color: #f8fafc; 
+            --card-bg: #ffffff; 
+            --text-main: #0f172a; 
+            --text-sub: #64748b; 
+            --border: #e2e8f0; 
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             --card-hover-shadow: 0 10px 25px -5px rgba(217, 119, 6, 0.12);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
@@ -23,176 +23,79 @@
         .container { max-width: 1100px; margin: 0 auto; }
         
         header { text-align: center; margin-bottom: 35px; }
-        header h1 { font-size: 2.2rem; color: var(--text-main); margin-bottom: 10px; font-weight: 700; letter-spacing: -0.5px; }
+        header h1 { font-size: 2.2rem; color: var(--text-main); margin-bottom: 10px; font-weight: 700; }
         header h1 span { color: var(--primary); }
-        header p { color: var(--text-sub); font-size: 1rem; }
+        header p { color: var(--text-sub); font-size: 1rem; margin-bottom: 15px; }
         
-        .search-box {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 40px;
+        .btn-register {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 10px 22px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
+            transition: background 0.2s, transform 0.2s;
         }
-        .search-box input {
-            width: 100%;
-            max-width: 480px;
-            padding: 14px 22px;
-            font-size: 0.95rem;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            color: var(--text-main);
-            border-radius: 14px;
-            outline: none;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-        }
-        .search-box input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15);
-        }
+        .btn-register:hover { background: var(--primary-hover); transform: translateY(-2px); }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+        .search-box { display: flex; justify-content: center; margin: 30px 0 40px; }
+        .search-box input {
+            width: 100%; max-width: 480px; padding: 14px 22px; font-size: 0.95rem;
+            background: var(--card-bg); border: 1px solid var(--border); color: var(--text-main);
+            border-radius: 14px; outline: none; box-shadow: var(--shadow); transition: all 0.3s ease;
         }
+        .search-box input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15); }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
         .card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 24px 20px;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            background: var(--card-bg); border-radius: 20px; padding: 24px 20px;
+            border: 1px solid var(--border); box-shadow: var(--shadow); text-align: center;
+            cursor: pointer; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
         }
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--card-hover-shadow);
-            border-color: rgba(217, 119, 6, 0.4);
-        }
-        .avatar {
-            width: 85px;
-            height: 85px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 14px;
-            border: 2px solid var(--primary);
-        }
+        .card:hover { transform: translateY(-4px); box-shadow: var(--card-hover-shadow); border-color: rgba(217, 119, 6, 0.4); }
+        .avatar { width: 85px; height: 85px; border-radius: 50%; object-fit: cover; margin-bottom: 14px; border: 2px solid var(--primary); }
         .name { font-size: 1.1rem; font-weight: 600; color: var(--text-main); margin-bottom: 2px; }
         .nickname { font-size: 0.85rem; color: var(--primary); font-weight: 600; margin-bottom: 8px; }
         .class-badge {
-            display: inline-block;
-            background: rgba(217, 119, 6, 0.08);
-            color: var(--primary);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-bottom: 12px;
+            display: inline-block; background: rgba(217, 119, 6, 0.08); color: var(--primary);
+            padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-bottom: 12px;
         }
         .bio { font-size: 0.85rem; color: var(--text-sub); margin-bottom: 16px; min-height: 35px; line-height: 1.4; }
         
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
+        .social-links { display: flex; justify-content: center; gap: 10px; }
         .social-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-sub);
-            text-decoration: none;
-            font-size: 0.9rem;
-            background: #f1f5f9;
-            border: 1px solid var(--border);
-            transition: all 0.2s;
+            width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: var(--text-sub); text-decoration: none; font-size: 0.9rem; background: #f1f5f9; border: 1px solid var(--border); transition: all 0.2s;
         }
         .social-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
 
-        /* Hộp thoại Popup Chi tiết */
+        /* Modal Chi tiết */
         .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.4);
-            backdrop-filter: blur(4px);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 20px;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(4px);
+            justify-content: center; align-items: center; z-index: 1000; padding: 20px;
         }
         .modal-content {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 30px;
-            border-radius: 24px;
-            max-width: 420px;
-            width: 100%;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            animation: fadeIn 0.25s ease;
+            background: var(--card-bg); border: 1px solid var(--border); padding: 30px;
+            border-radius: 24px; max-width: 420px; width: 100%; text-align: center; position: relative;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        .close-btn {
-            position: absolute;
-            top: 15px; right: 20px;
-            font-size: 1.4rem;
-            color: var(--text-sub);
-            cursor: pointer;
-            background: none; border: none;
-        }
-        .close-btn:hover { color: var(--text-main); }
-        .modal-avatar {
-            width: 100px; height: 100px;
-            border-radius: 50%; object-fit: cover;
-            border: 3px solid var(--primary);
-            margin-bottom: 15px;
-        }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.4rem; color: var(--text-sub); cursor: pointer; background: none; border: none; }
+        .modal-avatar { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary); margin-bottom: 15px; }
         .modal-name { font-size: 1.3rem; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
         .modal-nickname { color: var(--primary); font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; }
-        .modal-bio { background: #f8fafc; padding: 12px; border-radius: 12px; margin: 15px 0; font-size: 0.9rem; color: var(--text-sub); border: 1px solid var(--border); line-height: 1.4; }
-        
-        .full-socials {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 20px;
-        }
+        .modal-bio { background: #f8fafc; padding: 12px; border-radius: 12px; margin: 15px 0; font-size: 0.9rem; color: var(--text-sub); border: 1px solid var(--border); }
+        .full-socials { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
         .link-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 12px;
-            border-radius: 12px;
-            text-decoration: none;
-            color: var(--text-main);
-            background: #f8fafc;
-            border: 1px solid var(--border);
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px;
+            border-radius: 12px; text-decoration: none; color: var(--text-main); background: #f8fafc;
+            border: 1px solid var(--border); font-weight: 500; font-size: 0.95rem; transition: all 0.2s;
         }
-        .link-item:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            background: rgba(217, 119, 6, 0.04);
-        }
-        .empty-state {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 50px;
-            color: var(--text-sub);
-            font-size: 0.95rem;
-        }
+        .link-item:hover { border-color: var(--primary); color: var(--primary); background: rgba(217, 119, 6, 0.04); }
+        .empty-state { grid-column: 1 / -1; text-align: center; padding: 50px; color: var(--text-sub); }
     </style>
 </head>
 <body>
@@ -200,6 +103,7 @@
         <header>
             <h1>THPT Cẩm Giàng <span>Directory</span></h1>
             <p>Không gian kết nối, tìm kiếm thông tin bạn bè toàn trường ✨</p>
+            <a href="https://forms.gle/EbQy3CU6LLqkirHD7" target="_blank" class="btn-register"><i class="fa-solid fa-pen-to-square"></i> Đăng ký thông tin của bạn</a>
         </header>
 
         <div class="search-box">
@@ -207,15 +111,13 @@
         </div>
 
         <div class="grid" id="profileGrid">
-            <!-- Khu vực danh sách trống, sạch sẽ không có thành viên mẫu -->
             <div class="empty-state">
-                <i class="fa-solid fa-users-rectangle" style="font-size: 2.5rem; margin-bottom: 12px; color: var(--primary);"></i>
-                <p>Chưa có thành viên nào. Hãy điền form để hiển thị thông tin lên đây nhé!</p>
+                <i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 10px; color: var(--primary);"></i>
+                <p>Đang tải dữ liệu từ danh sách...</p>
             </div>
         </div>
     </div>
 
-    <!-- Hộp thoại Chi tiết Profile (Mini Blog) -->
     <div class="modal" id="profileModal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeProfile()">&times;</button>
@@ -234,16 +136,55 @@
     </div>
 
     <script>
-        function openProfile(name, nickname, className, bio, avatar, fb, ig, tt) {
-            document.getElementById('mName').innerText = name;
-            document.getElementById('mNickname').innerText = nickname ? `"${nickname}"` : '';
-            document.getElementById('mClass').innerText = className;
-            document.getElementById('mBio').innerText = bio;
-            document.getElementById('mAvatar').src = avatar || 'https://via.placeholder.com/150';
+        // THAY LINK WEB APP CỦA BẠN VÀO DƯỚI ĐÂY:
+        const WEB_APP_URL = "YOUR_WEB_APP_URL_HERE";
+
+        let allProfiles = [];
+
+        async function loadData() {
+            try {
+                let response = await fetch(WEB_APP_URL);
+                let data = await response.json();
+                allProfiles = data;
+                renderProfiles(data);
+            } catch (error) {
+                document.getElementById('profileGrid').innerHTML = `<div class="empty-state"><p>Chưa có dữ liệu hoặc chưa cấu hình đúng Web App URL.</p></div>`;
+            }
+        }
+
+        function renderProfiles(profiles) {
+            const grid = document.getElementById('profileGrid');
+            if (profiles.length === 0) {
+                grid.innerHTML = `<div class="empty-state"><p>Chưa có thành viên nào.</p></div>`;
+                return;
+            }
+
+            grid.innerHTML = profiles.map((p, index) => `
+                <div class="card" onclick='openProfile(${JSON.stringify(p)})'>
+                    <img src="${p.avatar || 'https://via.placeholder.com/150'}" class="avatar" alt="Avatar">
+                    <div class="name">${p.name || ''}</div>
+                    <div class="nickname">${p.nickname ? '"' + p.nickname + '"' : ''}</div>
+                    <div class="class-badge">${p.className || ''}</div>
+                    <div class="bio">${p.bio || 'Chưa có lời giới thiệu.'}</div>
+                    <div class="social-links" onclick="event.stopPropagation()">
+                        ${p.facebook ? `<a href="${p.facebook}" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i></a>` : ''}
+                        ${p.instagram ? `<a href="${p.instagram}" target="_blank" class="social-btn"><i class="fab fa-instagram"></i></a>` : ''}
+                        ${p.tiktok ? `<a href="${p.tiktok}" target="_blank" class="social-btn"><i class="fab fa-tiktok"></i></a>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openProfile(p) {
+            document.getElementById('mName').innerText = p.name || '';
+            document.getElementById('mNickname').innerText = p.nickname ? `"${p.nickname}"` : '';
+            document.getElementById('mClass').innerText = p.className || '';
+            document.getElementById('mBio').innerText = p.bio || '';
+            document.getElementById('mAvatar').src = p.avatar || 'https://via.placeholder.com/150';
             
-            document.getElementById('mLinkFb').href = fb || '#';
-            document.getElementById('mLinkIg').href = ig || '#';
-            document.getElementById('mLinkTt').href = tt || '#';
+            document.getElementById('mLinkFb').href = p.facebook || '#';
+            document.getElementById('mLinkIg').href = p.instagram || '#';
+            document.getElementById('mLinkTt').href = p.tiktok || '#';
 
             document.getElementById('profileModal').style.display = 'flex';
         }
@@ -254,24 +195,20 @@
 
         window.onclick = function(event) {
             let modal = document.getElementById('profileModal');
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
+            if (event.target == modal) { modal.style.display = 'none'; }
         }
 
-        const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('input', (e) => {
+        document.getElementById('searchInput').addEventListener('input', (e) => {
             const keyword = e.target.value.toLowerCase();
-            const cards = document.querySelectorAll('.card');
-            cards.forEach(card => {
-                const text = card.innerText.toLowerCase();
-                if(text.includes(keyword)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+            const filtered = allProfiles.filter(p => 
+                (p.name && p.name.toLowerCase().includes(keyword)) ||
+                (p.nickname && p.nickname.toLowerCase().includes(keyword)) ||
+                (p.className && p.className.toLowerCase().includes(keyword))
+            );
+            renderProfiles(filtered);
         });
+
+        loadData();
     </script>
 </body>
 </html>
