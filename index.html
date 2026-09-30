@@ -3,177 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng ký thông tin - THPT Cẩm Giàng</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Trang Chủ - Danh Sách Thành Viên</title>
     <style>
-        :root {
-            --primary: #d97706;
-            --primary-hover: #b45309;
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #0f172a;
-            --text-sub: #64748b;
-            --border: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; padding: 30px 20px; display: flex; justify-content: center; align-items: center; }
-        
-        .container { max-width: 500px; width: 100%; background: var(--card-bg); padding: 35px 30px; border-radius: 24px; border: 1px solid var(--border); box-shadow: var(--shadow); }
-        
-        header { text-align: center; margin-bottom: 25px; }
-        header h1 { font-size: 1.8rem; color: var(--text-main); font-weight: 700; margin-bottom: 8px; }
-        header h1 span { color: var(--primary); }
-        header p { color: var(--text-sub); font-size: 0.9rem; }
-
-        .form-group { margin-bottom: 18px; }
-        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 6px; }
-        .form-group input, .form-group textarea {
-            width: 100%; padding: 12px 16px; font-size: 0.95rem; background: #f8fafc; border: 1px solid var(--border);
-            color: var(--text-main); border-radius: 12px; outline: none; transition: all 0.3s ease;
-        }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15); }
-        .form-group textarea { resize: vertical; min-height: 80px; }
-        
-        .form-group input[type="file"] { padding: 10px; border: 1px dashed var(--border); background: #f8fafc; cursor: pointer; }
-
-        .btn-submit {
-            width: 100%; background: var(--primary); color: white; padding: 14px; border-radius: 12px;
-            border: none; font-weight: 600; font-size: 1rem; cursor: pointer; box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
-            transition: background 0.2s, transform 0.2s; margin-top: 10px;
-        }
-        .btn-submit:hover { background: var(--primary-hover); transform: translateY(-1px); }
-        .back-link { display: block; text-align: center; margin-top: 15px; color: var(--text-sub); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
-        .back-link:hover { color: var(--primary); }
-
-        #result { text-align: center; margin-top: 15px; font-size: 0.9rem; font-weight: 500; }
+        body { font-family: Arial, sans-serif; background: #f4f6f9; margin: 0; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; max-width: 1000px; margin: 0 auto 20px auto; }
+        h1 { color: #333; margin: 0; }
+        .btn-register { background: #5cb85c; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold; }
+        .btn-register:hover { background: #4cae4c; }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; }
+        .card { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); text-align: center; }
+        .card img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 10px; border: 2px solid #ddd; }
+        .card h3 { margin: 10px 0 5px 0; color: #333; }
+        .card p { color: #666; font-size: 14px; margin: 5px 0; }
+        .socials { margin-top: 15px; }
+        .socials a { margin: 0 5px; color: #0275d8; text-decoration: none; font-size: 14px; }
+        .socials a:hover { text-decoration: underline; }
+        #loadingText { text-align: center; color: #666; font-size: 16px; margin-top: 40px; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1>Đăng ký thông tin <span>THPT Cẩm Giàng</span></h1>
-            <p>Điền thông tin để hiển thị lên danh sách toàn trường ✨</p>
-        </header>
+<div class="header">
+    <h1>Danh Sách Thành Viên</h1>
+    <a href="register.html" class="btn-register">+ Đăng ký ngay</a>
+</div>
 
-        <form id="regForm">
-            <div class="form-group">
-                <label>Họ và tên (*)</label>
-                <input type="text" name="name" required placeholder="Ví dụ: Nguyễn Văn A">
-            </div>
+<div id="loadingText">Đang tải dữ liệu từ Google Sheet lên...</div>
+<div class="grid-container" id="memberGrid"></div>
 
-            <div class="form-group">
-                <label>Biệt danh / Tên gọi ở nhà</label>
-                <input type="text" name="nickname" placeholder="Ví dụ: A mập">
-            </div>
+<script>
+    // 👇 DÁN LINK GOOGLE APPS SCRIPT VÀO ĐÂY LUÔN NHÉ
+    const SCRIPT_URL = "DÁN_LINK_WEB_APP_Ở_ĐÂY";
 
-            <div class="form-group">
-                <label>Lớp (*)</label>
-                <input type="text" name="className" required placeholder="Ví dụ: 12A">
-            </div>
-
-            <div class="form-group">
-                <label>Ảnh Avatar cá nhân</label>
-                <input type="file" id="avatarFile" accept="image/*">
-            </div>
-
-            <div class="form-group">
-                <label>Giới thiệu ngắn (Bio)</label>
-                <textarea name="bio" placeholder="Vài dòng giới thiệu bản thân..."></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Link Facebook cá nhân</label>
-                <input type="url" name="facebook" placeholder="https://facebook.com/...">
-            </div>
-
-            <div class="form-group">
-                <label>Link Instagram / Locket</label>
-                <input type="url" name="instagram" placeholder="https://instagram.com/...">
-            </div>
-
-            <div class="form-group">
-                <label>Link TikTok</label>
-                <input type="url" name="tiktok" placeholder="https://tiktok.com/@...">
-            </div>
-
-            <button type="submit" class="btn-submit" id="submitBtn">Gửi thông tin</button>
-            <div id="result"></div>
-        </form>
-        
-        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Quay lại trang danh sách</a>
-    </div>
-
-    <script>
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyfD_5QkRjkNCbcOjNtycJ72NOjhTa6rr8Yc9ZUPuYE-etvUWS8kR4iFPpWr2HcpaVr/exec";
-        // Key ImgBB công khai miễn phí để up ảnh lấy link trực tiếp ngay lập tức
-        const IMGBB_API_KEY = "6d207e02198a847aa98d0a2a901485a2"; 
-
-        document.getElementById('regForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const btn = document.getElementById('submitBtn');
-            const resultDiv = document.getElementById('result');
+    fetch(SCRIPT_URL)
+        .then(response => response.json())
+        .then(data => {
+            const loadingText = document.getElementById('loadingText');
+            const grid = document.getElementById('memberGrid');
             
-            btn.disabled = true;
-            resultDiv.innerHTML = "Đang xử lý và tải ảnh lên...";
-            resultDiv.style.color = "var(--text-sub)";
+            loadingText.style.display = 'none';
 
-            try {
-                let avatarUrl = "";
-                const fileInput = document.getElementById('avatarFile');
-                
-                // Nếu học sinh có chọn ảnh, đẩy lên ImgBB trước
-                if (fileInput.files.length > 0) {
-                    const formDataImg = new FormData();
-                    formDataImg.append('image', fileInput.files[0]);
-                    
-                    const imgRes = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-                        method: 'POST',
-                        body: formDataImg
-                    });
-                    const imgData = await imgRes.json();
-                    if (imgData.success) {
-                        avatarUrl = imgData.data.url;
-                    }
-                }
-
-                // Gom dữ liệu form
-                const formElement = e.target;
-                const data = {
-                    name: formElement.name.value,
-                    nickname: formElement.nickname.value,
-                    className: formElement.className.value,
-                    bio: formElement.bio.value,
-                    avatar: avatarUrl,
-                    facebook: formElement.facebook.value,
-                    instagram: formElement.instagram.value,
-                    tiktok: formElement.tiktok.value
-                };
-
-                // Gửi dữ liệu lên Google Sheets thông qua Web App URL
-                const encodedData = new URLSearchParams(data).toString();
-                await fetch(WEB_APP_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: encodedData
-                });
-
-                resultDiv.innerHTML = "Đăng ký thành công! Đang chuyển hướng...";
-                resultDiv.style.color = "#16a34a";
-                formElement.reset();
-                
-                setTimeout(() => {
-                    window.location.href = "index.html";
-                }, 1500);
-
-            } catch (err) {
-                resultDiv.innerHTML = "Có lỗi xảy ra, vui lòng thử lại!";
-                resultDiv.style.color = "#dc2626";
-                btn.disabled = false;
+            if (!data || data.length === 0) {
+                grid.innerHTML = "<p style='text-align:center; grid-column: 1/-1;'>Chưa có ai đăng ký cả!</p>";
+                return;
             }
+
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                
+                const avatarUrl = item.avatar && item.avatar.startsWith('http') 
+                    ? item.avatar 
+                    : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
+
+                card.innerHTML = `
+                    <img src="${avatarUrl}" alt="Avatar">
+                    <h3>${item.name || 'Chưa cập nhật'}</h3>
+                    <p><b>Lớp:</b> ${item.className || 'N/A'}</p>
+                    <p><i>${item.nickname ? '(' + item.nickname + ')' : ''}</i></p>
+                    <p>${item.bio || ''}</p>
+                    <div class="socials">
+                        ${item.facebook ? `<a href="${item.facebook}" target="_blank">Facebook</a>` : ''}
+                        ${item.instagram ? `<a href="${item.instagram}" target="_blank">Instagram</a>` : ''}
+                        ${item.tiktok ? `<a href="${item.tiktok}" target="_blank">TikTok</a>` : ''}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        })
+        .catch(err => {
+            console.error('Lỗi tải dữ liệu:', err);
+            document.getElementById('loadingText').innerText = "Không tải được dữ liệu từ Google Sheet. Hãy kiểm tra lại Link Script!";
         });
-    </script>
+</script>
+
 </body>
 </html>
