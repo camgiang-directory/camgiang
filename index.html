@@ -136,12 +136,12 @@
     </div>
 
     <script>
-        // Link Web App của bạn
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz_K_N3x6bM6wZc3O5Mv9kGjL2T9v_0l6H8c7kY1z2a3b4c5d6e7f8g9h0/exec"; // Bạn hãy giữ nguyên link Web App hiện tại của bạn nhé (hoặc đoạn YOUR_WEB_APP_URL_HERE cũ của bạn)
+        // Đã tích hợp sẵn link Web App của bạn vào đây:
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwj-kSnokuo78Oje7A5BB7WkJPMPBjt4UM2tYBTI0RC2NkRnX3WCOpqIvR5_S_mPb5Y5A/exec";
 
         let allProfiles = [];
 
-        // Hàm chuyển đổi link Google Drive sang link ảnh hiển thị trực tiếp
+        // Hàm chuyển đổi link Google Drive sang link hiển thị ảnh trực tiếp
         function fixImageUrl(url) {
             if (!url) return 'https://via.placeholder.com/150';
             if (url.includes('drive.google.com')) {
@@ -160,7 +160,7 @@
                 allProfiles = data;
                 renderProfiles(data);
             } catch (error) {
-                document.getElementById('profileGrid').innerHTML = `<div class="empty-state"><p>Chưa có dữ liệu hoặc chưa cấu hình đúng Web App URL.</p></div>`;
+                document.getElementById('profileGrid').innerHTML = `<div class="empty-state"><p>Chưa tải được dữ liệu, hãy kiểm tra lại kết nối hoặc quyền truy cập Web App.</p></div>`;
             }
         }
 
@@ -171,7 +171,7 @@
                 return;
             }
 
-            grid.innerHTML = profiles.map((p, index) => {
+            grid.innerHTML = profiles.map((p) => {
                 let avatarUrl = fixImageUrl(p.avatar);
                 return `
                     <div class="card" onclick='openProfile(${JSON.stringify(p).replace(/'/g, "&#39;")})'>
