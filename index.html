@@ -56,7 +56,7 @@
             cursor: pointer; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
         }
         .card:hover { transform: translateY(-4px); box-shadow: var(--card-hover-shadow); border-color: rgba(217, 119, 6, 0.4); }
-        .avatar { width: 85px; height: 85px; border-radius: 50%; object-fit: cover; margin-bottom: 14px; border: 2px solid var(--primary); }
+        .avatar { width: 85px; height: 85px; border-radius: 50%; object-fit: cover; margin-bottom: 14px; border: 2px solid var(--primary); background: #f1f5f9; }
         .name { font-size: 1.1rem; font-weight: 600; color: var(--text-main); margin-bottom: 2px; }
         .nickname { font-size: 0.85rem; color: var(--primary); font-weight: 600; margin-bottom: 8px; }
         .class-badge {
@@ -84,7 +84,7 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.4rem; color: var(--text-sub); cursor: pointer; background: none; border: none; }
-        .modal-avatar { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary); margin-bottom: 15px; }
+        .modal-avatar { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary); margin-bottom: 15px; background: #f1f5f9; }
         .modal-name { font-size: 1.3rem; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
         .modal-nickname { color: var(--primary); font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; }
         .modal-bio { background: #f8fafc; padding: 12px; border-radius: 12px; margin: 15px 0; font-size: 0.9rem; color: var(--text-sub); border: 1px solid var(--border); }
@@ -121,7 +121,7 @@
     <div class="modal" id="profileModal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeProfile()">&times;</button>
-            <img src="" id="mAvatar" class="modal-avatar" alt="Avatar">
+            <img src="" id="mAvatar" class="modal-avatar" alt="Avatar" onerror="this.src='https://via.placeholder.com/150'">
             <div class="modal-nickname" id="mNickname"></div>
             <div class="modal-name" id="mName"></div>
             <div class="class-badge" id="mClass"></div>
@@ -136,18 +136,21 @@
     </div>
 
     <script>
-        // Đã tích hợp sẵn link Web App của bạn vào đây:
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwj-kSnokuo78Oje7A5BB7WkJPMPBjt4UM2tYBTI0RC2NkRnX3WCOpqIvR5_S_mPb5Y5A/exec";
 
         let allProfiles = [];
 
-        // Hàm chuyển đổi link Google Drive sang link hiển thị ảnh trực tiếp
+        // Hàm xử lý triệt để link ảnh Google Drive hoặc các link khác
         function fixImageUrl(url) {
             if (!url) return 'https://via.placeholder.com/150';
+            url = url.trim();
+            
+            // Xử lý link Google Drive dạng chia sẻ thông thường hoặc open?id=
             if (url.includes('drive.google.com')) {
                 let match = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/);
                 if (match && match[1]) {
-                    return `https://lh3.googleusercontent.com/d/${match[1]}`;
+                    // Dùng api trực tiếp để ép trình duyệt load được ảnh từ Drive
+                    return `https://lh3.googleusercontent.com/d/` + match[1];
                 }
             }
             return url;
@@ -160,7 +163,7 @@
                 allProfiles = data;
                 renderProfiles(data);
             } catch (error) {
-                document.getElementById('profileGrid').innerHTML = `<div class="empty-state"><p>Chưa tải được dữ liệu, hãy kiểm tra lại kết nối hoặc quyền truy cập Web App.</p></div>`;
+                document.getElementById('profileGrid').innerHTML = `<div class="empty-state"><p>Chưa tải được dữ liệu.</p></div>`;
             }
         }
 
@@ -175,7 +178,7 @@
                 let avatarUrl = fixImageUrl(p.avatar);
                 return `
                     <div class="card" onclick='openProfile(${JSON.stringify(p).replace(/'/g, "&#39;")})'>
-                        <img src="${avatarUrl}" class="avatar" alt="Avatar">
+                        <img src="${avatarUrl}" class="avatar" alt="Avatar" onerror="this.src='https://via.placeholder.com/150'">
                         <div class="name">${p.name || ''}</div>
                         <div class="nickname">${p.nickname ? '"' + p.nickname + '"' : ''}</div>
                         <div class="class-badge">${p.className || ''}</div>
