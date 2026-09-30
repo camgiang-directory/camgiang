@@ -8,13 +8,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #f59e0b; /* Màu vàng Gold sang trọng */
-            --primary-hover: #d97706;
-            --bg-color: #090a0f;
-            --card-bg: #12141c;
-            --text-main: #ffffff;
-            --text-sub: #9ca3af;
-            --border: #1f293d;
+            --primary: #d97706; /* Màu vàng Gold sang trọng */
+            --primary-hover: #b45309;
+            --bg-color: #f8fafc; /* Nền trắng sáng */
+            --card-bg: #ffffff; /* Thẻ màu trắng tinh */
+            --text-main: #0f172a; /* Chữ chính màu đen đậm */
+            --text-sub: #64748b; /* Chữ phụ xám */
+            --border: #e2e8f0; /* Viền xám nhạt */
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --card-hover-shadow: 0 10px 25px -5px rgba(217, 119, 6, 0.12);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; padding: 30px 20px; }
@@ -40,12 +42,12 @@
             color: var(--text-main);
             border-radius: 14px;
             outline: none;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            box-shadow: var(--shadow);
             transition: all 0.3s ease;
         }
         .search-box input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+            box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15);
         }
 
         .grid {
@@ -58,15 +60,15 @@
             border-radius: 20px;
             padding: 24px 20px;
             border: 1px solid var(--border);
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2);
+            box-shadow: var(--shadow);
             text-align: center;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
         }
         .card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.15);
-            border-color: rgba(245, 158, 11, 0.4);
+            box-shadow: var(--card-hover-shadow);
+            border-color: rgba(217, 119, 6, 0.4);
         }
         .avatar {
             width: 85px;
@@ -77,10 +79,10 @@
             border: 2px solid var(--primary);
         }
         .name { font-size: 1.1rem; font-weight: 600; color: var(--text-main); margin-bottom: 2px; }
-        .nickname { font-size: 0.85rem; color: var(--primary); font-weight: 500; margin-bottom: 8px; }
+        .nickname { font-size: 0.85rem; color: var(--primary); font-weight: 600; margin-bottom: 8px; }
         .class-badge {
             display: inline-block;
-            background: rgba(245, 158, 11, 0.1);
+            background: rgba(217, 119, 6, 0.08);
             color: var(--primary);
             padding: 4px 12px;
             border-radius: 20px;
@@ -102,22 +104,22 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: var(--text-sub);
             text-decoration: none;
             font-size: 0.9rem;
-            background: #1a1e29;
+            background: #f1f5f9;
             border: 1px solid var(--border);
             transition: all 0.2s;
         }
-        .social-btn:hover { background: var(--primary); color: #000; border-color: var(--primary); }
+        .social-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
 
-        /* Hộp thoại Popup Mini Blog cá nhân */
+        /* Hộp thoại Popup Chi tiết */
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(5, 6, 10, 0.8);
-            backdrop-filter: blur(8px);
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(4px);
             justify-content: center;
             align-items: center;
             z-index: 1000;
@@ -132,7 +134,7 @@
             width: 100%;
             text-align: center;
             position: relative;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             animation: fadeIn 0.25s ease;
         }
         @keyframes fadeIn {
@@ -154,9 +156,9 @@
             border: 3px solid var(--primary);
             margin-bottom: 15px;
         }
-        .modal-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 4px; }
-        .modal-nickname { color: var(--primary); font-size: 0.9rem; font-weight: 500; margin-bottom: 6px; }
-        .modal-bio { background: rgba(255,255,255,0.02); padding: 12px; border-radius: 12px; margin: 15px 0; font-size: 0.9rem; color: var(--text-sub); border: 1px solid var(--border); line-height: 1.4; }
+        .modal-name { font-size: 1.3rem; font-weight: 700; color: var(--text-main); margin-bottom: 4px; }
+        .modal-nickname { color: var(--primary); font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; }
+        .modal-bio { background: #f8fafc; padding: 12px; border-radius: 12px; margin: 15px 0; font-size: 0.9rem; color: var(--text-sub); border: 1px solid var(--border); line-height: 1.4; }
         
         .full-socials {
             display: flex;
@@ -173,7 +175,7 @@
             border-radius: 12px;
             text-decoration: none;
             color: var(--text-main);
-            background: #1a1e29;
+            background: #f8fafc;
             border: 1px solid var(--border);
             font-weight: 500;
             font-size: 0.95rem;
@@ -182,7 +184,7 @@
         .link-item:hover {
             border-color: var(--primary);
             color: var(--primary);
-            background: rgba(245, 158, 11, 0.05);
+            background: rgba(217, 119, 6, 0.04);
         }
         .empty-state {
             grid-column: 1 / -1;
@@ -226,7 +228,7 @@
             <div class="full-socials">
                 <a href="#" id="mLinkFb" target="_blank" class="link-item"><i class="fab fa-facebook-f" style="color: #1877f2;"></i> Nhắn tin Facebook</a>
                 <a href="#" id="mLinkIg" target="_blank" class="link-item"><i class="fab fa-instagram" style="color: #e4405f;"></i> Xem Instagram / Locket</a>
-                <a href="#" id="mLinkTt" target="_blank" class="link-item"><i class="fab fa-tiktok" style="color: #fff;"></i> Ghé thăm TikTok</a>
+                <a href="#" id="mLinkTt" target="_blank" class="link-item"><i class="fab fa-tiktok" style="color: #000;"></i> Ghé thăm TikTok</a>
             </div>
         </div>
     </div>
